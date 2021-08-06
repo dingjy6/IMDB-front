@@ -1,8 +1,11 @@
+<!-- 把练习1中的记账本进行了组件化 -->
 <template>
   <div>
     <b>记账本</b>
     <div>
-      <!-- TODO 1 -->
+      <!-- 练习3-提供header插槽 -->
+      <slot name="header"></slot>
+
       <div>
         <el-form size="small" inline v-model="form">
           <el-form-item label="名称">
@@ -58,8 +61,22 @@
 </template>
 
 <script>
+import { EventBus } from "@/views/test/EventBus"
+
 export default {
-  name: "practice",
+  name: "practice-componentization",
+  // 声明一个accounts的prop，并将其用作一个v-model，当触发change事件时，能通知父组件更新值
+  model: {
+    prop: "accounts",
+    event: "change"
+  },
+  props: {
+    accounts: {
+      type: Array,
+      // 数组和对象类型的默认值，需要通过函数初始化
+      default: () => []
+    }
+  },
   data() {
     return {
       form: {
@@ -68,12 +85,14 @@ export default {
       },
       name: "",
       amount: "",
-      itemList: [],
+      // itemList不变，v-for中循环渲染的仍然时内部的itemList；初始值设为传入的prop
+      itemList: this.accounts,
     };
   },
   computed: {
     // 计算属性，显示总金额
     sum() {
+      // 通过reduce计算，可以自行查阅用法
       return this.itemList.reduce((prev, curr) => prev + curr.amount, 0);
     },
   },
@@ -85,18 +104,34 @@ export default {
       if (this.form.name === "" || this.form.amount === "") {
         return;
       }
-      this.itemList.push({ name: this.form.name, amount: this.form.amount });
+      let item = { name: this.form.name, amount: this.form.amount }
+      this.itemList.push(item);
       // 清空
       this.form.name = "";
       this.form.amount = "";
+
+      // Practice3 向eventbus中发布事件
+      EventBus.$emit('add-log', '新增：' + JSON.stringify(item));
+      // Practice3 向vuex提交mutation
+      this.$store.commit('ADD_LOG', '新增：' + JSON.stringify(item));
     },
     deleteRow(index) {
-      this.itemList.splice(index, 1);
+      let deletedItem = this.itemList.splice(index, 1);
+
+      // Practice3 向eventbus中发布事件
+      EventBus.$emit('add-log', '删除：' + JSON.stringify(deletedItem));
+      // Practice3 向vuex提交mutation
+      this.$store.commit('ADD_LOG', '删除：' + JSON.stringify(deletedItem));
     },
     // 高亮
     hightlightRow(row) {
       this.$set(row, "hightlight", !row.hightlight);
       // row.hightlight = true;
+      
+      // Practice3 向eventbus中发布事件
+      EventBus.$emit('add-log', (row.hightlight ? '标记' : '取消标记') + '：' + JSON.stringify(row));
+      // Practice3 向vuex提交mutation
+      this.$store.commit('ADD_LOG', (row.hightlight ? '标记' : '取消标记') + '：' + JSON.stringify(row));
     },
   },
   filters: {
@@ -107,7 +142,21 @@ export default {
   watch: {
     itemList(newVal, oldVal) {
       this.$message.info("itemList变化了");
+      // Practice3 组件化，账本改变时，通知父组件
+      this.$emit("change", newVal);
+
+      if(oldVal.length > 0 && newVal.length === 0) {
+        // 被清空了
+        // Practice3 向eventbus中发布事件
+        EventBus.$emit('add-log', '清空');
+        // Practice3 向vuex提交mutation
+        this.$store.commit('ADD_LOG', '清空');
+      }
     },
+    accounts(newVal, oldVal) {
+      // Practice3 同步更新
+      this.itemList = newVal;
+    }
   },
 };
 </script>

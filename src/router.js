@@ -23,7 +23,22 @@ export default new Router({
       name: 'practice',
       component: () => import('@/views/Practice.vue')
     },
-    // 动态路由示例
+    {
+      path: '/practice-demo',
+      name: 'practice-demo',
+      component: () => import('@/views/test/Practice.vue')
+    },
+    {
+      path: '/practice3-demo',
+      name: 'practice3-demo',
+      component: () => import('@/views/test/Practice3.vue')
+    },
+    {
+      path: '/practice3-demo-account-book',
+      name: 'practice3-demo-account-book',
+      component: () => import('@/views/test/PracticeComponentized.vue')
+    },
+    // 嵌套路由示例
     {
       path: '/rf',
       name: 'rf',

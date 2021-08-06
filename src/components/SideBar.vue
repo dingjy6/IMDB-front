@@ -41,6 +41,21 @@ export default {
           iconClass: "el-icon-edit-outline",
           title: "嵌套路由示例",
         },
+        {
+          index: "/practice-demo",
+          iconClass: "el-icon-edit-outline",
+          title: "练习1-示例",
+        },
+        {
+          index: "/practice3-demo",
+          iconClass: "el-icon-edit-outline",
+          title: "练习3-示例",
+        },
+        {
+          index: "/practice3-demo-account-book",
+          iconClass: "el-icon-edit-outline",
+          title: "组件化的记账本",
+        },
       ],
     };
   },
