@@ -1,0 +1,13 @@
+@font-face {
+    font-family: baby-night;
+    src: url(./Baby\ Night.otf);
+}
+.decorate-title{
+    font-family:baby-night;
+    font-size:50px;
+    font-weight:100;
+}
+
+.el-descriptions-item__content{
+    color: black;
+}

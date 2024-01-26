@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     menuCollapsed: false,
-    logs: [],   // 练习3-8，log-vuex
+    logs: [],
+    connection:localStorage.getItem('connection')||'mysql',
   },
   mutations: {
     CHANGE_MENU_COLLAPSED(state) {
@@ -15,6 +16,10 @@ export default new Vuex.Store({
     // 添加log记录
     ADD_LOG(state, log) {
       state.logs.push(new Date().toLocaleString() + ' ' + log);
+    },
+    CHANGE_CONNECTION(state, database){
+      state.connection = database;
+      localStorage.setItem('connection', database)
     }
   },
   actions: {
@@ -22,6 +27,7 @@ export default new Vuex.Store({
   },
   getters: {
     menuCollapsed: (state) => state.menuCollapsed,
-    logs: (state) => state.logs
+    logs: (state) => state.logs,
+    connection:(state) => state.connection
   }
 })

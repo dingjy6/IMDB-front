@@ -2,7 +2,7 @@
   <div id="app">
     <el-container id="container">
       <!-- 侧边栏 -->
-      <el-aside id="aside" :width="menuCollapsed ? '65px' : '200px'">
+      <el-aside id="aside" :width="menuCollapsed ? '65px' : '250px'">
         <side-bar></side-bar>
       </el-aside>
       <el-main id="main">
@@ -14,9 +14,9 @@
           <el-main>
             <router-view />
           </el-main>
-          <el-footer id="footer" height="30px">
+          <!-- <el-footer id="footer" height="30px">
             <status-bar></status-bar>
-          </el-footer>
+          </el-footer> -->
         </el-container>
       </el-main>
     </el-container>

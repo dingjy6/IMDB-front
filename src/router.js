@@ -13,43 +13,22 @@ export default new Router({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import( /* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path: '/practice',
-      name: 'practice',
-      component: () => import('@/views/Practice.vue')
+      path: '/movies',
+      name: 'movies',
+      component: () => import('@/views/Movies.vue')
     },
     {
-      path: '/practice-demo',
-      name: 'practice-demo',
-      component: () => import('@/views/test/Practice.vue')
+      path: '/celebs',
+      name: 'celebs',
+      component: () => import('@/views/Celebs.vue')
     },
     {
-      path: '/practice3-demo',
-      name: 'practice3-demo',
-      component: () => import('@/views/test/Practice3.vue')
+      path: '/recommend',
+      name: 'recommend',
+      component: () => import('@/views/Recommend.vue')
     },
-    {
-      path: '/practice3-demo-account-book',
-      name: 'practice3-demo-account-book',
-      component: () => import('@/views/test/PracticeComponentized.vue')
-    },
-    // 嵌套路由示例
-    {
-      path: '/rf',
-      name: 'rf',
-      component: () => import('@/views/rf/RFView.vue'),
-      children: [
-        {
-          path: 'rf-practice',
-          name: 'rf-practice',
-          component: () => import('@/views/rf/RFPractice.vue')
-        }
-      ]
-    }
   ]
 })
