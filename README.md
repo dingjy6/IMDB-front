@@ -1,5 +1,6 @@
-# vue-demo1
-
+# vue-demo
+## Description
+a Movie Recommendation System based on Vue.js and a previous Vue demo, front web application for class project DSA5104
 ## Project setup
 ```
 npm install
